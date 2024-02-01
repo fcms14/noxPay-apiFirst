@@ -6,7 +6,7 @@ export class Account {
         public balance: number
     ) { }
 
-    static async getAll(apiKey: string): Promise<Account> {
+    static async get(apiKey: string): Promise<Account> {
         const response = await HttpService.get<Account>(apiKey, 'account');
 
         return new Account(response.name, response.balance);

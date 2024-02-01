@@ -6,6 +6,7 @@ import { ApiHeader, ApiTags } from '@nestjs/swagger';
 @ApiHeader({
   name: 'Api-Key',
   description: 'To get an APIKEY and a merchant resgistration, you must get in contact with NoxPay',
+  required: true
 })
 @Controller('account')
 export class AccountController {

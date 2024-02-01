@@ -6,7 +6,7 @@ export class TestAuth {
         public perm: string
     ) { }
 
-    static async getAll(apiKey: string): Promise<TestAuth> {
+    static async get(apiKey: string): Promise<TestAuth> {
         const response = await HttpService.get<TestAuth>(apiKey, 'test-auth');
 
         return new TestAuth(response.name, response.perm);
