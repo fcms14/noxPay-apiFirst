@@ -1,42 +1,22 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Post, Body, Headers } from '@nestjs/common';
 import { ReportService } from './report.service';
 import { CreateReportDto } from './dto/create-report.dto';
-import { UpdateReportDto } from './dto/update-report.dto';
+import { ApiHeader, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('report')
+@ApiHeader({
+  name: 'Api-Key',
+  description: 'To get an APIKEY and a merchant resgistration, you must get in contact with NoxPay',
+  required: true
+})
 @Controller('report')
 export class ReportController {
-  constructor(private readonly reportService: ReportService) {}
+  constructor(private readonly reportService: ReportService) { }
 
-  @Post()
-  create(@Body() createReportDto: CreateReportDto) {
-    return this.reportService.create(createReportDto);
-  }
+  @Post('transactions')
+  transactions(@Body() createReportDto: CreateReportDto, @Headers() headers: Record<string, string>) {
+    const apiKey = headers['api-key']
 
-  @Get()
-  findAll() {
-    return this.reportService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.reportService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateReportDto: UpdateReportDto) {
-    return this.reportService.update(+id, updateReportDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.reportService.remove(+id);
+    return this.reportService.transactions(apiKey, createReportDto);
   }
 }
