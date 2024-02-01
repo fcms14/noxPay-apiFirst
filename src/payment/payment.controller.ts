@@ -1,42 +1,38 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Body, Controller, Get, Headers, Post, Query } from '@nestjs/common';
 import { PaymentService } from './payment.service';
 import { CreatePaymentDto } from './dto/create-payment.dto';
-import { UpdatePaymentDto } from './dto/update-payment.dto';
+import { ApiBody, ApiHeader, ApiQuery, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('payment')
+@ApiHeader({
+  name: 'Api-Key',
+  description: 'To get an APIKEY and a merchant resgistration, you must get in contact with NoxPay',
+  required: true
+})
 @Controller('payment')
 export class PaymentController {
-  constructor(private readonly paymentService: PaymentService) {}
+  constructor(private readonly paymentService: PaymentService) { }
+
+  @ApiQuery({ name: 'txid', description: 'Payment txid' })
+  @Get(':txid')
+  findOne(@Query('txid') txid: string, @Headers() headers: Record<string, string>) {
+    const apiKey = headers['api-key']
+
+    return this.paymentService.findOne(apiKey, txid);
+  }
+
+  @ApiQuery({ name: 'txid', description: 'Payment txid' })
+  @Get('/webhook/resend/:txid')
+  webhookResend(@Query('txid') txid: string, @Headers() headers: Record<string, string>) {
+    const apiKey = headers['api-key']
+
+    return this.paymentService.webhookResend(apiKey, txid);
+  }
 
   @Post()
-  create(@Body() createPaymentDto: CreatePaymentDto) {
-    return this.paymentService.create(createPaymentDto);
-  }
+  create(@Body() createPaymentDto: CreatePaymentDto, @Headers() headers: Record<string, string>) {
+    const apiKey = headers['api-key']
 
-  @Get()
-  findAll() {
-    return this.paymentService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.paymentService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePaymentDto: UpdatePaymentDto) {
-    return this.paymentService.update(+id, updatePaymentDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.paymentService.remove(+id);
+    return this.paymentService.create(apiKey, createPaymentDto);
   }
 }

@@ -13,4 +13,18 @@ export class HttpService {
             throw new HttpException(error?.message ?? "bad request", error?.response?.status ?? HttpStatus.BAD_REQUEST);
         }
     }
+
+    static async post<T>(apiKey: string, path: string, body: any): Promise<T> {
+        console.log({ apiKey, path, body })
+        try {
+            const url = `${process.env.URL}/${path}`
+            const headers = { headers: { 'Api-Key': apiKey } }
+            const response: AxiosResponse<T> = await axios.post(url, body, headers);
+
+            return response.data;
+        } catch (error) {
+            console.log({ error })
+            throw new HttpException(error?.message ?? "bad request", error?.response?.status ?? HttpStatus.BAD_REQUEST);
+        }
+    }
 }
