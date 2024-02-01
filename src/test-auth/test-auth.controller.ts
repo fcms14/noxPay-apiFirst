@@ -1,7 +1,6 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Headers } from '@nestjs/common';
+import { Controller, Get, Headers } from '@nestjs/common';
 import { TestAuthService } from './test-auth.service';
 import { ApiHeader, ApiTags } from '@nestjs/swagger';
-import { Request } from 'express';
 
 @ApiTags('test-auth')
 @ApiHeader({
