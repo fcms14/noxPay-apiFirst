@@ -3,7 +3,7 @@ import { Account } from './entities/account.entity';
 
 @Injectable()
 export class AccountService {
-  findAll(apiKey: string) {
+  findAll(apiKey: string): Promise<Account> {
     return Account.get(apiKey);
   }
 }

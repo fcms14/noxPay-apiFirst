@@ -3,6 +3,7 @@ import { PaymentService } from './payment.service';
 import { CreatePaymentDto } from './dto/create-payment.dto';
 import { PaymentDto } from './dto/payment.dto';
 import { ApiCreatedResponse, ApiHeader, ApiOkResponse, ApiQuery, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
+import { Payment } from './entities/payment.entity';
 
 @ApiTags('payment')
 @ApiHeader({ name: 'Api-Key', required: true })
@@ -14,7 +15,7 @@ export class PaymentController {
   @ApiOkResponse({ description: 'Success response', type: PaymentDto })
   @ApiQuery({ name: 'txid', description: 'Payment txid' })
   @Get(':txid')
-  findOne(@Query('txid') txid: string, @Headers() headers: Record<string, string>) {
+  findOne(@Query('txid') txid: string, @Headers() headers: Record<string, string>): Promise<Payment> {
     const apiKey = headers['api-key']
 
     return this.paymentService.findOne(apiKey, txid);
@@ -23,7 +24,7 @@ export class PaymentController {
   @ApiOkResponse({ description: 'Success response', type: PaymentDto })
   @ApiQuery({ name: 'txid', description: 'Payment txid' })
   @Get('/webhook/resend/:txid')
-  webhookResend(@Query('txid') txid: string, @Headers() headers: Record<string, string>) {
+  webhookResend(@Query('txid') txid: string, @Headers() headers: Record<string, string>): Promise<Payment> {
     const apiKey = headers['api-key']
 
     return this.paymentService.webhookResend(apiKey, txid);
@@ -31,7 +32,7 @@ export class PaymentController {
 
   @ApiCreatedResponse({ description: 'Success response', type: PaymentDto })
   @Post()
-  create(@Body() createPaymentDto: CreatePaymentDto, @Headers() headers: Record<string, string>) {
+  create(@Body() createPaymentDto: CreatePaymentDto, @Headers() headers: Record<string, string>): Promise<Payment> {
     const apiKey = headers['api-key']
 
     return this.paymentService.create(apiKey, createPaymentDto);

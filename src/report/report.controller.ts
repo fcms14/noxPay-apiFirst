@@ -3,6 +3,7 @@ import { ReportService } from './report.service';
 import { CreateReportDto } from './dto/create-report.dto';
 import { ReportDto } from './dto/report.dto';
 import { ApiCreatedResponse, ApiHeader, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
+import { Report } from './entities/report.entity';
 
 @ApiTags('report')
 @ApiHeader({ name: 'Api-Key', required: true })
@@ -13,7 +14,7 @@ export class ReportController {
 
   @ApiCreatedResponse({ description: 'Success response', type: ReportDto })
   @Post('transactions')
-  transactions(@Body() createReportDto: CreateReportDto, @Headers() headers: Record<string, string>) {
+  transactions(@Body() createReportDto: CreateReportDto, @Headers() headers: Record<string, string>): Promise<Report> {
     const apiKey = headers['api-key']
 
     return this.reportService.transactions(apiKey, createReportDto);

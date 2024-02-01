@@ -3,7 +3,7 @@ import { TestAuth } from './entities/test-auth.entity';
 
 @Injectable()
 export class TestAuthService {
-  findAll(apiKey: string) {
+  findAll(apiKey: string): Promise<TestAuth> {
     return TestAuth.get(apiKey);
   }
 }
