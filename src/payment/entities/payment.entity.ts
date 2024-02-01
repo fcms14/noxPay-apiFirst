@@ -16,6 +16,8 @@ export class Payment {
         public QRCode?:  string,
         public QRCodeText?:  string,
         public URL?:  string,
+        public type?:  string,
+        public pixkey?:  string,
     ) { }
 
     static async get(apiKey: string, txid: string): Promise<Payment> {
@@ -58,7 +60,7 @@ export class Payment {
             response.code,
             response.txid,
             response.amount,
-            null,
+            response.status,
             response.Status,
             null,
             null,
@@ -67,6 +69,8 @@ export class Payment {
             response.QRCode,
             response.QRCodeText,
             response.URL,
+            response.type,
+            response.pixkey,
         );
     }
 }

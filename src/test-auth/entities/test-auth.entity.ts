@@ -2,8 +2,8 @@ import { HttpService } from "src/services/http.service";
 
 export class TestAuth {
     constructor(
-        public name: number,
-        public perm: string
+        public name: string,
+        public perm: number
     ) { }
 
     static async get(apiKey: string): Promise<TestAuth> {
