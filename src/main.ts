@@ -7,7 +7,9 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('NoxPay')
-    .setDescription('The NoxPay API documentation. <br>To get an APIKEY and a merchant resgistration, you must get in contact with NoxPay')
+    .setDescription(
+      'The NoxPay API documentation. <br>To get an APIKEY and a merchant resgistration, you must get in contact with NoxPay',
+    )
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);

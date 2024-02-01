@@ -2,20 +2,28 @@ import { Controller, Post, Body, Headers } from '@nestjs/common';
 import { ReportService } from './report.service';
 import { CreateReportDto } from './dto/create-report.dto';
 import { ReportDto } from './dto/report.dto';
-import { ApiCreatedResponse, ApiHeader, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
+import {
+  ApiCreatedResponse,
+  ApiHeader,
+  ApiTags,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 import { Report } from './entities/report.entity';
 
 @ApiTags('report')
 @ApiHeader({ name: 'Api-Key', required: true })
-@ApiUnauthorizedResponse({ description: 'Error: Unauthorized'})
+@ApiUnauthorizedResponse({ description: 'Error: Unauthorized' })
 @Controller('report')
 export class ReportController {
-  constructor(private readonly reportService: ReportService) { }
+  constructor(private readonly reportService: ReportService) {}
 
   @ApiCreatedResponse({ description: 'Success response', type: ReportDto })
   @Post('transactions')
-  transactions(@Body() createReportDto: CreateReportDto, @Headers() headers: Record<string, string>): Promise<Report> {
-    const apiKey = headers['api-key']
+  transactions(
+    @Body() createReportDto: CreateReportDto,
+    @Headers() headers: Record<string, string>,
+  ): Promise<Report> {
+    const apiKey = headers['api-key'];
 
     return this.reportService.transactions(apiKey, createReportDto);
   }

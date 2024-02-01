@@ -1,14 +1,14 @@
-import { HttpService } from "src/services/http.service";
+import { HttpService } from 'src/services/http.service';
 
 export class TestAuth {
-    constructor(
-        public name: string,
-        public perm: number
-    ) { }
+  constructor(
+    public name: string,
+    public perm: number,
+  ) {}
 
-    static async get(apiKey: string): Promise<TestAuth> {
-        const response = await HttpService.get<TestAuth>(apiKey, 'test-auth');
+  static async get(apiKey: string): Promise<TestAuth> {
+    const response = await HttpService.get<TestAuth>(apiKey, 'test-auth');
 
-        return new TestAuth(response.name, response.perm);
-    }
+    return new TestAuth(response.name, response.perm);
+  }
 }

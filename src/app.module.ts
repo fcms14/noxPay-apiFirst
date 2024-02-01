@@ -11,7 +11,7 @@ import { TestAuthModule } from './test-auth/test-auth.module';
     AccountModule,
     PaymentModule,
     ReportModule,
-    TestAuthModule
+    TestAuthModule,
   ],
 })
-export class AppModule { }
+export class AppModule {}
