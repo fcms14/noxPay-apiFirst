@@ -3,11 +3,7 @@ import { TestAuthService } from './test-auth.service';
 import { ApiHeader, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('test-auth')
-@ApiHeader({
-  name: 'Api-Key',
-  description: 'To get an APIKEY and a merchant resgistration, you must get in contact with NoxPay',
-  required: true
-})
+@ApiHeader({ name: 'Api-Key', required: true })
 @Controller('test-auth')
 export class TestAuthController {
   constructor(private readonly testAuthService: TestAuthService) { }

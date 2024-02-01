@@ -4,11 +4,7 @@ import { CreateReportDto } from './dto/create-report.dto';
 import { ApiHeader, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('report')
-@ApiHeader({
-  name: 'Api-Key',
-  description: 'To get an APIKEY and a merchant resgistration, you must get in contact with NoxPay',
-  required: true
-})
+@ApiHeader({ name: 'Api-Key', required: true })
 @Controller('report')
 export class ReportController {
   constructor(private readonly reportService: ReportService) { }

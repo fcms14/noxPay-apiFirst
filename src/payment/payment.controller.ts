@@ -4,11 +4,7 @@ import { CreatePaymentDto } from './dto/create-payment.dto';
 import { ApiHeader, ApiQuery, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('payment')
-@ApiHeader({
-  name: 'Api-Key',
-  description: 'To get an APIKEY and a merchant resgistration, you must get in contact with NoxPay',
-  required: true
-})
+@ApiHeader({ name: 'Api-Key', required: true })
 @Controller('payment')
 export class PaymentController {
   constructor(private readonly paymentService: PaymentService) { }
