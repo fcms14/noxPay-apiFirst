@@ -15,7 +15,6 @@ export class HttpService {
     }
 
     static async post<T>(apiKey: string, path: string, body: any): Promise<T> {
-        console.log({ apiKey, path, body })
         try {
             const url = `${process.env.URL}/${path}`
             const headers = { headers: { 'Api-Key': apiKey } }
@@ -23,7 +22,6 @@ export class HttpService {
 
             return response.data;
         } catch (error) {
-            console.log({ error })
             throw new HttpException(error?.message ?? "bad request", error?.response?.status ?? HttpStatus.BAD_REQUEST);
         }
     }

@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Headers, Post, Query } from '@nestjs/common';
 import { PaymentService } from './payment.service';
 import { CreatePaymentDto } from './dto/create-payment.dto';
-import { ApiBody, ApiHeader, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ApiHeader, ApiQuery, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('payment')
 @ApiHeader({
