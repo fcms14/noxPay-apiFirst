@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Headers, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Headers, Param, Post } from '@nestjs/common';
 import { PaymentService } from './payment.service';
 import { CreatePaymentDto } from './dto/create-payment.dto';
 import { PaymentDto } from './dto/payment.dto';
@@ -23,7 +23,7 @@ export class PaymentController {
   @ApiQuery({ name: 'txid', description: 'Payment txid' })
   @Get(':txid')
   findOne(
-    @Query('txid') txid: string,
+    @Param('txid') txid: string,
     @Headers() headers: Record<string, string>,
   ): Promise<Payment> {
     const apiKey = headers['api-key'];
@@ -35,7 +35,7 @@ export class PaymentController {
   @ApiQuery({ name: 'txid', description: 'Payment txid' })
   @Get('/webhook/resend/:txid')
   webhookResend(
-    @Query('txid') txid: string,
+    @Param('txid') txid: string,
     @Headers() headers: Record<string, string>,
   ): Promise<Payment> {
     const apiKey = headers['api-key'];
