@@ -42,4 +42,7 @@ export class PaymentDto {
 
   @ApiProperty()
   type: string;
+
+  @ApiProperty()
+  pixkey: string;
 }
