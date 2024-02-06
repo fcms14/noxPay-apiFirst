@@ -6,7 +6,7 @@ import {
   ApiCreatedResponse,
   ApiHeader,
   ApiOkResponse,
-  ApiQuery,
+  ApiParam,
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
@@ -20,7 +20,7 @@ export class PaymentController {
   constructor(private readonly paymentService: PaymentService) {}
 
   @ApiOkResponse({ description: 'Success response', type: PaymentDto })
-  @ApiQuery({ name: 'txid', description: 'Payment txid' })
+  @ApiParam({ name: 'txid', description: 'Payment txid' })
   @Get(':txid')
   findOne(
     @Param('txid') txid: string,
@@ -32,7 +32,7 @@ export class PaymentController {
   }
 
   @ApiOkResponse({ description: 'Success response', type: PaymentDto })
-  @ApiQuery({ name: 'txid', description: 'Payment txid' })
+  @ApiParam({ name: 'txid', description: 'Payment txid' })
   @Get('/webhook/resend/:txid')
   webhookResend(
     @Param('txid') txid: string,
